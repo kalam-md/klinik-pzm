@@ -1,6 +1,8 @@
 <?php
 
 use App\Http\Controllers\BerandaController;
+use App\Http\Controllers\DokterController;
+use App\Http\Controllers\JadwalDokterController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\PoliKlinikController;
 use App\Http\Controllers\ProfilController;
@@ -38,4 +40,6 @@ Route::middleware('auth')->group(function () {
 
 Route::middleware(['auth', 'role:admin'])->group(function () {
     Route::resource('poli-klinik', PoliKlinikController::class);
+    Route::resource('dokter', DokterController::class);
+    Route::resource('jadwal-dokter', JadwalDokterController::class);
 });

@@ -82,19 +82,19 @@
             <div data-i18n="Analytics">Pasien</div>
           </a>
         </li>
-        <li class="menu-item">
-          <a href="index.html" class="menu-link">
-            <div data-i18n="Analytics">Dokter</div>
-          </a>
-        </li>
-        <li class="menu-item">
-          <a href="index.html" class="menu-link">
-            <div data-i18n="Analytics">Jadwal Dokter</div>
-          </a>
-        </li>
         <li class="menu-item {{ Request::is('poli-klinik*') ? 'active' : '' }}">
           <a href="{{ route('poli-klinik.index') }}" class="menu-link">
             <div data-i18n="Analytics">Poli Klinik</div>
+          </a>
+        </li>
+        <li class="menu-item {{ Request::is('dokter*') ? 'active' : '' }}">
+          <a href="{{ route('dokter.index') }}" class="menu-link">
+            <div data-i18n="Analytics">Dokter</div>
+          </a>
+        </li>
+        <li class="menu-item {{ Request::is('jadwal-dokter*') ? 'active' : '' }}">
+          <a href="{{ route('jadwal-dokter.index') }}" class="menu-link">
+            <div data-i18n="Analytics">Jadwal Dokter</div>
           </a>
         </li>
         <li class="menu-item">

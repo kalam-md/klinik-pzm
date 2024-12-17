@@ -2,63 +2,91 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Dokter;
+use App\Models\PoliKlinik;
+use Cviebrock\EloquentSluggable\Services\SlugService;
 use Illuminate\Http\Request;
+use Illuminate\Validation\Rule;
 
 class DokterController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
     public function index()
     {
-        //
+        $dokters = Dokter::with('poliklinik')->latest()->get();
+        return view('dokter.index', compact('dokters'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
     public function create()
     {
-        //
+        $polikliniks = PoliKlinik::all();
+        return view('dokter.create', compact('polikliniks'));
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
     public function store(Request $request)
     {
-        //
+        $validatedData = $request->validate([
+            'nama_dokter' => 'required|unique:dokters,nama_dokter|max:255',
+            'spesialis' => 'required|max:255',
+            'nomor_telepon' => 'required|numeric',
+            'email' => 'required|email|unique:dokters,email',
+            'poliklinik_id' => 'required|exists:poli_kliniks,id'
+        ]);
+
+        $validatedData['slug'] = SlugService::createSlug(Dokter::class, 'slug', $validatedData['nama_dokter']);
+
+        Dokter::create($validatedData);
+
+        alert()->success('Sukses', 'Dokter berhasil ditambahkan');
+        return redirect()->route('dokter.index');
     }
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(string $id)
+    public function show(string $slug)
     {
-        //
+        $dokter = Dokter::where('slug', $slug)->with('poliklinik')->firstOrFail();
+        return view('dokter.show', compact('dokter'));
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(string $id)
+    public function edit(string $slug)
     {
-        //
+        $dokter = Dokter::where('slug', $slug)->firstOrFail();
+        $polikliniks = PoliKlinik::all();
+        return view('dokter.edit', compact('dokter', 'polikliniks'));
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, string $id)
+    public function update(Request $request, string $slug)
     {
-        //
+        $dokter = Dokter::where('slug', $slug)->firstOrFail();
+
+        $validatedData = $request->validate([
+            'nama_dokter' => [
+                'required',
+                'max:255',
+                Rule::unique('dokters')->ignore($dokter->id)
+            ],
+            'spesialis' => 'required|max:255',
+            'nomor_telepon' => 'required|numeric',
+            'email' => [
+                'required',
+                'email',
+                Rule::unique('dokters')->ignore($dokter->id)
+            ],
+            'poliklinik_id' => 'required|exists:poli_kliniks,id'
+        ]);
+
+        $validatedData['slug'] = SlugService::createSlug(Dokter::class, 'slug', $validatedData['nama_dokter']);
+
+        $dokter->update($validatedData);
+
+        alert()->success('Sukses', 'Dokter berhasil diperbarui');
+        return redirect()->route('dokter.index');
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(string $id)
+    public function destroy(string $slug)
     {
-        //
+        $dokter = Dokter::where('slug', $slug)->firstOrFail();
+        $dokter->delete();
+
+        alert()->success('Sukses', 'Dokter berhasil dihapus');
+        return redirect()->route('dokter.index');
     }
 }

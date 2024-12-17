@@ -77,6 +77,8 @@ class PoliKlinikController extends Controller
             'deskripsi' => 'required'
         ]);
 
+        $validatedData['slug'] = SlugService::createSlug(PoliKlinik::class, 'slug', $validatedData['nama_poli']);
+
         $poliKlinik->update($validatedData);
 
         alert()->success('Sukses', 'Poli Klinik berhasil diperbarui');
