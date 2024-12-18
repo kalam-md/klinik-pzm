@@ -61,8 +61,10 @@
                   </div>
                 </div>
               </div>
-              <form action="" method="POST">
+              <form action="{{ route('rekam-medis.store') }}" method="POST">
                 @csrf
+                @if ($pendaftaranPasien->status == 'pending')
+                <input type="hidden" name="pendaftaran_id" value="{{ $pendaftaranPasien->id }}">
                 <div class="form-floating form-floating-outline mb-6">
                   <input type="text" class="form-control" id="basic-default-diagnosis" name="diagnosis"/>
                   <label for="basic-default-diagnosis">Diagnosis</label>
@@ -71,12 +73,15 @@
                   <input type="text" class="form-control" id="basic-default-perawatan" name="perawatan"/>
                   <label for="basic-default-perawatan">Perawatan</label>
                 </div>
-                <a href="#" class="btn btn-success me-3">
+                <button type="submit" class="btn btn-success me-3">
                   <span class="tf-icons ri-save-line me-1_5"></span> Simpan Rekam Medis
-                </a>
-                <a href="#" class="btn btn-danger me-3">
+                </button>
+                <button type="button"
+                  onclick="event.preventDefault(); document.getElementById('batalkan-form').submit();" 
+                  class="btn btn-danger me-3">
                   <span class="tf-icons ri-close-circle-line me-1_5"></span> Batalkan
-                </a>
+                </button>
+                @endif
                 <a href="#" class="btn btn-primary me-3">
                   <span class="tf-icons ri-printer-line me-1_5"></span> Cetak
                 </a>
@@ -89,4 +94,8 @@
     </div>
   </div>
 </div>
+<form id="batalkan-form" action="{{ route('pendaftaran-pasien.batalkan', $pendaftaranPasien->slug) }}" method="POST" style="display: none;">
+  @csrf
+  @method('PATCH')
+</form>
 @endsection

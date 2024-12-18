@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\JadwalDokter;
 use App\Models\PendaftaranPasien;
+use App\Models\RekamMedis;
 use App\Models\User;
 use Carbon\Carbon;
 use Cviebrock\EloquentSluggable\Services\SlugService;
@@ -132,6 +133,15 @@ class PendaftaranPasienController extends Controller
         $pendaftaranPasien->delete();
 
         alert()->success('Sukses', 'Pendaftaran Pasien berhasil dihapus');
+        return redirect()->route('pendaftaran-pasien.index');
+    }
+
+    public function batalkan(string $slug)
+    {
+        $pendaftaranPasien = PendaftaranPasien::where('slug', $slug)->firstOrFail();
+        $pendaftaranPasien->update(['status' => 'gagal']);
+
+        alert()->success('Sukses', 'Pendaftaran berhasil dibatalkan.');
         return redirect()->route('pendaftaran-pasien.index');
     }
 }

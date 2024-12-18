@@ -30,4 +30,9 @@ class PendaftaranPasien extends Model
     {
         return $this->belongsTo(User::class, 'user_id');
     }
+
+    public function rekammedis()
+    {
+        return $this->hasOne(RekamMedis::class);
+    }
 }

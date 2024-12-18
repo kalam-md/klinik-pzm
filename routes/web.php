@@ -8,6 +8,7 @@ use App\Http\Controllers\PendaftaranPasienController;
 use App\Http\Controllers\PoliKlinikController;
 use App\Http\Controllers\ProfilController;
 use App\Http\Controllers\RegisterController;
+use App\Http\Controllers\RekamMedisController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -43,8 +44,10 @@ Route::middleware(['auth', 'role:admin'])->group(function () {
     Route::resource('poli-klinik', PoliKlinikController::class);
     Route::resource('dokter', DokterController::class);
     Route::resource('jadwal-dokter', JadwalDokterController::class);
+    Route::resource('rekam-medis', RekamMedisController::class);
 });
 
 Route::middleware(['auth', 'role:admin,pasien'])->group(function () {
     Route::resource('pendaftaran-pasien', PendaftaranPasienController::class);
+    Route::patch('/pendaftaran-pasien/{slug}/batalkan', [PendaftaranPasienController::class, 'batalkan'])->name('pendaftaran-pasien.batalkan');
 });

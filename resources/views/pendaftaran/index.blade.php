@@ -35,7 +35,13 @@
                   {{ $pendaftaran->tanggal_pendaftaran }} | {{ $pendaftaran->jadwaldokter->jam_mulai }} - {{ $pendaftaran->jadwaldokter->jam_selesai }} WIB
                 </td>
                 <td class="text-truncate text-center">
+                  @if ($pendaftaran->status == 'pending')
                   <span class="badge bg-label-warning rounded-pill">{{ $pendaftaran->status }}</span>
+                  @elseif ($pendaftaran->status == 'selesai')
+                  <span class="badge bg-label-success rounded-pill">{{ $pendaftaran->status }}</span>
+                  @else
+                  <span class="badge bg-label-danger rounded-pill">{{ $pendaftaran->status }}</span>
+                  @endif
                 </td>
                 <td class="text-truncate text-center">
                   <a href="{{ route('pendaftaran-pasien.edit', $pendaftaran->slug) }}"><i class="ri-edit-box-line text-info ri-22px me-2"></i></a>

@@ -13,6 +13,11 @@ return new class extends Migration
     {
         Schema::create('rekam_medis', function (Blueprint $table) {
             $table->id();
+            $table->string('diagnosis')->nullable();
+            $table->string('perawatan')->nullable();
+            $table->string('slug')->unique();
+            $table->unsignedBigInteger('pendaftaran_id');
+            $table->foreign('pendaftaran_id')->references('id')->on('pendaftaran_pasiens')->onDelete('cascade');
             $table->timestamps();
         });
     }
