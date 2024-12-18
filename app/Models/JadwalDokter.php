@@ -32,4 +32,9 @@ class JadwalDokter extends Model
     {
         return $this->belongsTo(Dokter::class);
     }
+
+    public function pendaftaran()
+    {
+        return $this->hasMany(PendaftaranPasien::class);
+    }
 }

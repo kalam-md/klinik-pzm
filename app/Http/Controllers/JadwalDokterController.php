@@ -37,17 +37,7 @@ class JadwalDokterController extends Controller
             'hari' => 'required|in:Senin,Selasa,Rabu,Kamis,Jumat,Sabtu,Minggu',
             'jam_mulai' => 'required|date_format:H:i',
             'jam_selesai' => 'required|date_format:H:i|after:jam_mulai',
-            'dokter_id' => [
-                'required',
-                'exists:dokters,id',
-                // Validasi unik berdasarkan hari dan dokter
-                Rule::unique('jadwal_dokters')->where(function ($query) use ($request) {
-                    return $query->where('hari', $request->hari)
-                        ->where('dokter_id', $request->dokter_id);
-                })
-            ]
-        ], [
-            'jam_selesai.after' => 'Jam selesai harus lebih dari jam mulai.'
+            'dokter_id' => 'required',
         ]);
 
         $dokter = Dokter::findOrFail($validatedData['dokter_id']);
@@ -94,18 +84,7 @@ class JadwalDokterController extends Controller
             'hari' => 'required|in:Senin,Selasa,Rabu,Kamis,Jumat,Sabtu,Minggu',
             'jam_mulai' => 'required|date_format:H:i',
             'jam_selesai' => 'required|date_format:H:i|after:jam_mulai',
-            'dokter_id' => [
-                'required',
-                'exists:dokters,id',
-                // Validasi unik berdasarkan hari dan dokter, mengecualikan jadwal saat ini
-                Rule::unique('jadwal_dokters')->where(function ($query) use ($request, $jadwalDokter) {
-                    return $query->where('hari', $request->hari)
-                        ->where('dokter_id', $request->dokter_id)
-                        ->where('id', '!=', $jadwalDokter->id);
-                })
-            ]
-        ], [
-            'jam_selesai.after' => 'Jam selesai harus lebih dari jam mulai.'
+            'dokter_id' => 'required',
         ]);
 
         $jadwalDokter->update($validatedData);

@@ -4,6 +4,7 @@ use App\Http\Controllers\BerandaController;
 use App\Http\Controllers\DokterController;
 use App\Http\Controllers\JadwalDokterController;
 use App\Http\Controllers\LoginController;
+use App\Http\Controllers\PendaftaranPasienController;
 use App\Http\Controllers\PoliKlinikController;
 use App\Http\Controllers\ProfilController;
 use App\Http\Controllers\RegisterController;
@@ -42,4 +43,8 @@ Route::middleware(['auth', 'role:admin'])->group(function () {
     Route::resource('poli-klinik', PoliKlinikController::class);
     Route::resource('dokter', DokterController::class);
     Route::resource('jadwal-dokter', JadwalDokterController::class);
+});
+
+Route::middleware(['auth', 'role:admin,pasien'])->group(function () {
+    Route::resource('pendaftaran-pasien', PendaftaranPasienController::class);
 });

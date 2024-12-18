@@ -105,10 +105,9 @@
       </ul>
     </li>
 
-    <li class="menu-item">
+    <li class="menu-item {{ Request::is('pendaftaran-pasien*') ? 'active' : '' }}">
       <a
-        href=""
-        target="_blank"
+        href="{{ route('pendaftaran-pasien.index') }}"
         class="menu-link">
         <i class="menu-icon tf-icons ri-sticky-note-add-line"></i>
         <div>Pendaftaran Pasien</div>
@@ -117,7 +116,6 @@
     <li class="menu-item">
       <a
         href=""
-        target="_blank"
         class="menu-link">
         <i class="menu-icon tf-icons ri-history-line"></i>
         <div>Riwayat Medis Pasien</div>

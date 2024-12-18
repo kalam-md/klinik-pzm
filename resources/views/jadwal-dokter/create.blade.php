@@ -6,14 +6,14 @@
     <div class="col-12">
       <div class="card mb-6">
         <div class="card-header">
-          <h5 class="mb-0">Tambah Data Dokter</h5>
+          <h5 class="mb-0">Tambah Data Jadwal Dokter</h5>
         </div>
         <div class="card-body">
           <form action="{{ route('jadwal-dokter.store') }}" method="POST">
             @csrf
             <div class="form-floating form-floating-outline mb-6">
               <select class="form-select" id="dokter_id" name="dokter_id" aria-label="Default select example">
-                <option>Pilih poli klinik</option>
+                <option>Pilih dokter</option>
                 @foreach($dokters as $dokter)
                     <option value="{{ $dokter->id }}" 
                         {{ old('dokter_id') == $dokter->id ? 'selected' : '' }}>
@@ -21,7 +21,7 @@
                     </option>
                 @endforeach
               </select>
-              <label for="dokter_id">Poli Klinik</label>
+              <label for="dokter_id">Dokter</label>
             </div>
             <div class="form-floating form-floating-outline mb-6">
               <select class="form-select" id="hari" name="hari" aria-label="Default select example">
@@ -44,7 +44,7 @@
               <label for="basic-default-jam_selesai">Jam Selesai</label>
             </div>
             <button type="submit" class="btn btn-primary me-3">Simpan</button>
-            <a href="{{ route('dokter.index') }}" type="submit" class="btn btn-outline-primary">Kembali</a>
+            <a href="{{ route('jadwal-dokter.index') }}" type="submit" class="btn btn-outline-primary">Kembali</a>
           </form>
         </div>
       </div>
