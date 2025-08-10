@@ -23,6 +23,6 @@ class PoliKlinik extends Model
 
     public function dokter()
     {
-        return $this->hasOne(Dokter::class);
+        return $this->hasOne(Dokter::class, 'poliklinik_id');
     }
 }

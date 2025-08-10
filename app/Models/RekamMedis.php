@@ -26,6 +26,6 @@ class RekamMedis extends Model
 
     public function pendaftaran()
     {
-        return $this->belongsTo(PendaftaranPasien::class);
+        return $this->belongsTo(PendaftaranPasien::class, 'pendaftaran_id');
     }
 }

@@ -77,29 +77,29 @@
         <div data-i18n="Dashboards">Master Data</div>
       </a>
       <ul class="menu-sub">
-        <li class="menu-item">
-          <a href="index.html" class="menu-link">
-            <div data-i18n="Analytics">Pasien</div>
+        <li class="menu-item {{ Request::is('pasien*') ? 'active' : '' }}">
+          <a href="{{ route('pasien.index') }}" class="menu-link">
+            <div>Pasien</div>
           </a>
         </li>
         <li class="menu-item {{ Request::is('poli-klinik*') ? 'active' : '' }}">
           <a href="{{ route('poli-klinik.index') }}" class="menu-link">
-            <div data-i18n="Analytics">Poli Klinik</div>
+            <div>Poli Klinik</div>
           </a>
         </li>
         <li class="menu-item {{ Request::is('dokter*') ? 'active' : '' }}">
           <a href="{{ route('dokter.index') }}" class="menu-link">
-            <div data-i18n="Analytics">Dokter</div>
+            <div>Dokter</div>
           </a>
         </li>
         <li class="menu-item {{ Request::is('jadwal-dokter*') ? 'active' : '' }}">
           <a href="{{ route('jadwal-dokter.index') }}" class="menu-link">
-            <div data-i18n="Analytics">Jadwal Dokter</div>
+            <div>Jadwal Dokter</div>
           </a>
         </li>
-        <li class="menu-item">
-          <a href="index.html" class="menu-link">
-            <div data-i18n="Analytics">Antrian Pasien</div>
+        <li class="menu-item {{ Request::is('antrian*') ? 'active' : '' }}">
+          <a href="{{ route('antrian.index') }}" class="menu-link">
+            <div>Antrian Pasien</div>
           </a>
         </li>
       </ul>
@@ -113,19 +113,16 @@
         <div>Pendaftaran Pasien</div>
       </a>
     </li>
-    <li class="menu-item">
-      <a
-        href=""
-        class="menu-link">
+    
+    <li class="menu-item {{ Request::is('riwayat-medis*') ? 'active' : '' }}">
+      <a href="{{ route('riwayat-medis.index') }}" class="menu-link">
         <i class="menu-icon tf-icons ri-history-line"></i>
         <div>Riwayat Medis Pasien</div>
       </a>
     </li>
-    <li class="menu-item">
-      <a
-        href=""
-        target="_blank"
-        class="menu-link">
+
+    <li class="menu-item {{ Request::is('laporan*') ? 'active' : '' }}">
+      <a href="{{ route('laporan.index') }}" class="menu-link">
         <i class="menu-icon tf-icons ri-file-info-line"></i>
         <div>Laporan</div>
       </a>
