@@ -51,14 +51,14 @@ Route::middleware(['auth', 'role:admin'])->group(function () {
     Route::resource('rekam-medis', RekamMedisController::class);
     Route::get('/pasien', [PasienController::class, 'index'])->name('pasien.index');
     Route::get('/pasien/{slug}', [PasienController::class, 'show'])->name('pasien.show');
-    Route::get('/antrian', [AntrianPasienController::class, 'index'])->name('antrian.index');
     Route::patch('/antrian/{slug}/update-status', [AntrianPasienController::class, 'updateStatus'])->name('antrian.updateStatus');
-    Route::get('/riwayat-medis', [RiwayatMedisController::class, 'index'])->name('riwayat-medis.index');
-    Route::get('/riwayat-medis/{slug}', [RiwayatMedisController::class, 'show'])->name('riwayat-medis.show');
     Route::get('/laporan', [LaporanController::class, 'index'])->name('laporan.index');
 });
 
 Route::middleware(['auth', 'role:admin,pasien'])->group(function () {
+    Route::get('/antrian', [AntrianPasienController::class, 'index'])->name('antrian.index');
+    Route::get('/riwayat-medis', [RiwayatMedisController::class, 'index'])->name('riwayat-medis.index');
+    Route::get('/riwayat-medis/{slug}', [RiwayatMedisController::class, 'show'])->name('riwayat-medis.show');
     Route::resource('pendaftaran-pasien', PendaftaranPasienController::class);
     Route::patch('/pendaftaran-pasien/{slug}/batalkan', [PendaftaranPasienController::class, 'batalkan'])->name('pendaftaran-pasien.batalkan');
 });

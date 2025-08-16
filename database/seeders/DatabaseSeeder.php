@@ -27,14 +27,20 @@ class DatabaseSeeder extends Seeder
                 'updated_at' => Carbon::now()
             ],
             [
-                'nama_lengkap' => 'Kalam Mahardhika',
-                'username' => 'kalam',
-                'email' => 'klm@mail.com',
+                'nama_lengkap' => 'Bimo resnumurti',
+                'username' => 'bimo',
+                'email' => 'bimo@mail.com',
                 'role' => 'pasien',
-                'password' => Hash::make('klm123'),
+                'password' => Hash::make('bimo123'),
                 'created_at' => Carbon::now(),
                 'updated_at' => Carbon::now()
             ]
+        ]);
+
+        $this->call([
+            PoliKlinikSeeder::class,
+            DokterSeeder::class,
+            JadwalDokterSeeder::class,
         ]);
     }
 }
